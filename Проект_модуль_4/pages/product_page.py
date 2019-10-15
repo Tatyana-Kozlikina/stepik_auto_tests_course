@@ -45,3 +45,11 @@ class ProductPage(BasePage):
         basket_price=self.browser.find_element(*ProductPageLocators.BASKET_PRICE).text
         assert book_price == basket_price, \
             "Цена книги и корзины с одной этой книгой не совпадают"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.MASSAGE_ADD_TO_BASKET), \
+            "Присутствует сообщение об успешном добавлении в корзину, но его быть не должно"
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.MASSAGE_ADD_TO_BASKET), \
+            "Сообщение об успешном добавлении в корзину должно исчезать, но не изчезло"
