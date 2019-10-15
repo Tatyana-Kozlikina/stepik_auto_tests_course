@@ -1,4 +1,5 @@
 import pytest
+import time
 from .pages.locators import Locators
 from .pages.base_page import BasePage
 from .pages.login_page import LoginPage
@@ -6,8 +7,38 @@ from .pages.basket_page import BasketPage
 from .pages.product_page import ProductPage
 from .pages.locators import BasePageLocators
 from .pages.locators import ProductPageLocators
-from selenium.common.exceptions import NoAlertPresentException
 
+
+@pytest.mark.user
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function",autouse=True)
+    def setup(self,browser):
+        print("setup")
+        password=str(time.time())
+        email=password+"@fakemail.org"
+        link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
+        page_login = LoginPage(browser, link)
+        page_login.open()
+        page_login.register_new_user(email, password)
+        page_base = BasePage(browser, link)
+        page_base.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self,browser):
+        print("cant see")
+        page_product = ProductPage(browser,"http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/")
+        page_product.open()
+        page_product.click_element(*ProductPageLocators.BUTTON_ADD_TO_BASKET)
+        page_product.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self,browser):
+        print("product")
+        page_product = ProductPage(browser,"http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/")
+        page_product.open()
+        page_product.click_element(*ProductPageLocators.BUTTON_ADD_TO_BASKET)
+        page_product.should_be_in_basket()
+
+
+@pytest.mark.skip
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
     page_product = ProductPage(browser,link)
