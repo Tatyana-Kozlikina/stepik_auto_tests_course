@@ -20,6 +20,9 @@ class BasePage():
         except NoSuchElementException:
             return False
         return True
+
+    def is_text_element_present(self, how, what):
+        return self.browser.find_element(how, what).text
 		
     def is_not_element_present(self, how, what, timeout=4):
         try:

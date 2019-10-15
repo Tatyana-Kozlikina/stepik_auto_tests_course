@@ -20,7 +20,6 @@ class ProductPage(BasePage):
             print("No second alert presented")
 
     def should_be_in_basket(self):
-
         self.should_be_message_product_added_in_basket()
         self.should_be_correct_product_name()
         self.should_be_message_with_basket_price()
