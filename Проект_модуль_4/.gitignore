@@ -1,1 +1,5 @@
 /debug.log
+__pycache__/
+pages/__pycache__/
+.pytest_cache/
+debug.txt
