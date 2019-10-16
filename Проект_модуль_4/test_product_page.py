@@ -30,6 +30,7 @@ class TestUserAddToBasketFromProductPage():
         page_product.click_element(*ProductPageLocators.BUTTON_ADD_TO_BASKET)
         page_product.should_not_be_success_message()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self,browser):
         print("product")
         page_product = ProductPage(browser,"http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/")
@@ -38,7 +39,7 @@ class TestUserAddToBasketFromProductPage():
         page_product.should_be_in_basket()
 
 
-@pytest.mark.skip
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
     page_product = ProductPage(browser,link)
@@ -56,7 +57,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page_base = BasePage(browser, link)
     page_base.should_be_login_link()
 
-@pytest.mark.skip
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link="http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
     page_product = ProductPage(browser, link)
@@ -66,7 +67,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page_login=LoginPage(browser, browser.current_url)
     page_login.should_be_login_page()
 
-@pytest.mark.skip
+@pytest.mark.need_review
 def test_product_can_to_add_to_basket(browser):
     link="http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     page_product=ProductPage(browser,link)
@@ -95,7 +96,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page_product.solve_quiz_and_get_code()
     page_product.should_be_in_basket()
 
-@pytest.mark.skip
+@pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link="http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
     page_product = ProductPage(browser, link)
@@ -110,7 +111,7 @@ def test_guest_cant_see_success_message(browser):
     page_product.open()
     page_product.should_not_be_success_message()
 
-@pytest.mark.skip
+@pytest.mark.xfail
 def test_message_disappeared_after_adding_product_to_basket(browser):
     link="http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
     page_product = ProductPage(browser, link)
